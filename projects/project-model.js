@@ -9,4 +9,10 @@ module.exports = {
     return db('projects')
       .where({ id }).first;
   },
+
+  insert: function (project) {
+    return db('projects')
+    .insert(project)
+    .then(([id]) => this.findById(id));
+  },
 };
