@@ -3,12 +3,14 @@ const actionModel = require('../actions/action-model');
 
 module.exports = {
   find: function() {
-    return db('projects');
+    return db('projects')
+    .then(data => data.map(item => ({ ...item, completed: item.completed? true : false})));
   },
 
   findById: function(id) {
     return db('projects')
-      .where({ id }).first();
+      .where({ id }).first()
+      .then(data => ({ ...data, completed: data.completed? true : false}));
   },
 
   insert: function (project) {
@@ -48,6 +50,7 @@ module.exports = {
   findProjectActions: function (project_id) {
     return db('actions')
       .select('id', 'description', 'notes', 'completed')
-      .where({ project_id });
+      .where({ project_id })
+      .then(data => data.map(item => ({ ...item, completed: item.completed? true : false})));
   }
 };
