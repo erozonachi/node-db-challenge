@@ -9,4 +9,11 @@ module.exports = {
     return db('actions')
       .where({ id }).first;
   },
+
+  update: function (changes, id) {
+    return db('actions')
+      .where({ id })
+      .update(changes)
+      .then(count => (count > 0 ? this.findById(id) : null));
+  },
 };
