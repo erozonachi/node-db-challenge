@@ -16,4 +16,19 @@ module.exports = {
       .update(changes)
       .then(count => (count > 0 ? this.findById(id) : null));
   },
+
+  remove: function (id) {
+    let action = null;
+    return this.findById(id)
+      .then(data => {
+        if(!data) {
+          return 0;
+        }
+        action = data;
+        return db('actions')
+        .where({ id })
+        .del();
+      })
+      .then(count => (count > 0 ? action : null));
+  },
 };
