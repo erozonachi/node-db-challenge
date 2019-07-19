@@ -32,4 +32,16 @@ module.exports = {
       res.status(500).json({ error: 'server error' });
     }
   },
+
+  delete: async (req, res) => {
+    try {
+      const result = await projectModel.remove(req.project.id);
+      res.status(200).json({ 
+        message: 'Delete successful',
+        removed: result
+      });
+    } catch(error) {
+      res.status(500).json({ error: 'server error' });
+    }
+  },
 };
