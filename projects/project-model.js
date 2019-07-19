@@ -44,4 +44,10 @@ module.exports = {
     .insert({...action, project_id})
     .then(([id]) => actionModel.findById(id)); 
   },
+
+  findProjectActions: function (project_id) {
+    return db('actions')
+      .select('id', 'description', 'notes', 'completed')
+      .where({ project_id });
+  }
 };
