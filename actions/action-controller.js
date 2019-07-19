@@ -13,4 +13,13 @@ module.exports = {
       res.status(500).json({ error: 'server error' });
     }
   },
+
+  update: async (req, res) => {
+    try {
+      const result = await actionModel.update(req.body, req.action.id);
+      res.status(200).json(result);
+    } catch(error) {
+      res.status(500).json({ error: 'server error' });
+    }
+  },
 };
