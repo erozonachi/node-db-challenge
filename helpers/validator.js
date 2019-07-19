@@ -15,4 +15,29 @@ module.exports = {
       res.status(500).json({ error: 'server error' });
     }
   },
+
+  validateProject: async (req, res, next) => {
+    try {
+      const { name, description, completed } = req.body;
+
+      if(!name || name.trim() === '') {
+        return res.status(400).json({ message: 'Missing required name field'});
+      }
+      if(!description || description.trim() === '') {
+        return res.status(400).json({ message: 'Missing required description field'});
+      }
+      if(completed) {
+        if(completed.trim() === '') {
+          return res.status(400).json({ message: 'Missing required completed type field'});
+        }
+        if(completed !== 'false' && completed !== 'true') {
+          return res.status(400).json({ message: 'Expects boolean value for completed field'});
+        }
+      }
+
+      next();
+    } catch(error) {
+      res.status(500).json({ error: 'server error' });
+    }
+  },
 };
