@@ -33,4 +33,11 @@ module.exports = {
       })
       .then(count => (count > 0 ? action : null));
   },
+
+  findActionContexts: function (action_id) {
+    return db('use-contexts')
+      .select('contexts.id', 'name', 'notes')
+      .join('contexts', 'context_id', 'contexts.id')
+      .where({ action_id });
+  }
 };
