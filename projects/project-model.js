@@ -15,4 +15,11 @@ module.exports = {
     .insert(project)
     .then(([id]) => this.findById(id));
   },
+
+  update: function (changes, id) {
+    return db('projects')
+      .where({ id })
+      .update(changes)
+      .then(count => (count > 0 ? this.findById(id) : null));
+  },
 };
