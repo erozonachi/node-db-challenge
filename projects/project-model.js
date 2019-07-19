@@ -1,4 +1,5 @@
 const db = require('../data/dbConfig');
+const actionModel = require('../actions/action-model');
 
 module.exports = {
   find: function() {
@@ -36,5 +37,11 @@ module.exports = {
         .del();
       })
       .then(count => (count > 0 ? project : null));
+  },
+
+  addAction: function (action, project_id) {
+    return db('actions')
+    .insert({...action, project_id})
+    .then(([id]) => actionModel.findById(id)); 
   },
 };
