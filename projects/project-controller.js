@@ -44,4 +44,13 @@ module.exports = {
       res.status(500).json({ error: 'server error' });
     }
   },
+
+  createAction: async (req, res) => {
+    try {
+      const result = await projectModel.addAction(req.body, req.project.id);
+      res.status(201).json(result);
+    } catch(error) {
+      res.status(500).json({ error: 'server error' });
+    }
+  },
 };
