@@ -8,7 +8,7 @@ module.exports = {
 
   findById: function(id) {
     return db('projects')
-      .where({ id }).first;
+      .where({ id }).first();
   },
 
   insert: function (project) {
