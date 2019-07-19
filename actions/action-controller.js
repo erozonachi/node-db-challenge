@@ -4,7 +4,8 @@ module.exports = {
   read: async (req, res) => {
     try {
       if(req.action) {
-        return res.status(200).json(req.action);
+        const contexts = await actionModel.findActionContexts(req.action.id);
+        return res.status(200).json({ ...req.action, contexts });
       }
 
       const actions = await actionModel.find();
