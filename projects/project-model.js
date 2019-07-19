@@ -22,4 +22,19 @@ module.exports = {
       .update(changes)
       .then(count => (count > 0 ? this.findById(id) : null));
   },
+
+  remove: function (id) {
+    let project = null;
+    return this.findById(id)
+      .then(data => {
+        if(!data) {
+          return 0;
+        }
+        project = data;
+        return db('projects')
+        .where({ id })
+        .del();
+      })
+      .then(count => (count > 0 ? project : null));
+  },
 };
